@@ -29,12 +29,23 @@ function createSearchResponse (context) {
 function getEndpointUrl (query, locale, contentFilter, mediaFilter, limit, accessKey) {
   var queryParams = buildQueryParams(query, locale, contentFilter, mediaFilter, limit, accessKey)
 
-  return buildSearchUrl(queryParams)
+  if (query) {
+    return buildSearchUrl(queryParams)
+  } else {
+    return buildTrendingUrl(queryParams)
+  }
 }
 
 function buildSearchUrl (queryParams) {
   return buildUrl('https://api.tenor.com', {
     path: 'v1/search',
+    queryParams: queryParams
+  })
+}
+
+function buildTrendingUrl (queryParams) {
+  return buildUrl('https://api.tenor.com', {
+    path: 'v1/trending',
     queryParams: queryParams
   })
 }
