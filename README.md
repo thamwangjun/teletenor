@@ -1,11 +1,8 @@
 # [![teletenor logo banner image](readme-static/teletenor-banner.png)](https://telegram.me/teletenor_bot)
 
-[**teletenor**](https://telegram.me/teletenor_bot) is an inline bot for [Telgram](https://telegram.org/) that provides inline gif suggestions retrieved from [Tenor](https://tenor.com/).
+[**teletenor**](https://telegram.me/ttenor_bot) is an inline bot for [Telgram](https://telegram.org/) that provides inline gif suggestions retrieved from [Tenor](https://tenor.com/).
 
-You can use the bot by mentioning [`@teletenor_bot`](https://telegram.me/teletenor_bot) in Telegram.
-
-_**Telegram Bot page**_
-[https://telegram.me/teletenor_bot](https://telegram.me/teletenor_bot)
+You can use the bot by mentioning [`@ttenor_bot`](https://telegram.me/ttenor_bot) in Telegram. [^1]
 
 **teletenor is still currently in alpha status.**
 
@@ -60,6 +57,6 @@ yarn start
 
 5. Logging and performance metrics
 
----
-
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+
+[^1]: (`@teletenor_bot`) has been disabled in favor of a shorter username handle (`@ttenor_bot`)
