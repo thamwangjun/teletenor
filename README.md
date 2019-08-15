@@ -6,6 +6,12 @@ You can use the bot by mentioning `@teletenor_bot` in Telegram.
 
 **teletenor is still currently in alpha status.**
 
+### Prerequisites
+
+* [Node 10.16.2 LTS](https://nodejs.org/en/) *Earlier Node versions may work, but not tested*
+* [A Telegram bot authorization token](https://core.telegram.org/bots#6-botfather)
+* [A Tenor API Key](https://tenor.com/developer/keyregistration)
+
 ### *Clone teletenor*
 
 ```shell
