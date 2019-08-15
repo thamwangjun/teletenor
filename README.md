@@ -1,10 +1,15 @@
-# ![teletenor logo banner image](readme-static/teletenor-banner.png)
+# [![teletenor logo banner image](readme-static/teletenor-banner.png)](https://telegram.me/teletenor_bot)
 
-**teletenor** is an inline bot for [Telgram](https://telegram.org/) that provides inline gif suggestions retrieved from [Tenor](https://tenor.com/).
+[**teletenor**](https://telegram.me/teletenor_bot) is an inline bot for [Telgram](https://telegram.org/) that provides inline gif suggestions retrieved from [Tenor](https://tenor.com/).
 
-You can use the bot by mentioning `@teletenor_bot` in Telegram.
+You can use the bot by mentioning [`@teletenor_bot`](https://telegram.me/teletenor_bot) in Telegram.
+
+_**Telegram Bot page**_
+[https://telegram.me/teletenor_bot](https://telegram.me/teletenor_bot)
 
 **teletenor is still currently in alpha status.**
+
+## Setup
 
 ### Prerequisites
 
