@@ -2,7 +2,7 @@
 
 [**teletenor**](https://telegram.me/ttenor_bot) is an inline bot for [Telgram](https://telegram.org/) that provides inline gif suggestions retrieved from [Tenor](https://tenor.com/).
 
-You can use the bot by mentioning [`@ttenor_bot`](https://telegram.me/ttenor_bot) in Telegram. [^1]
+You can use the bot by mentioning [`@ttenor_bot`](https://telegram.me/ttenor_bot) in Telegram.
 
 **teletenor is still currently in alpha status.**
 
@@ -59,4 +59,6 @@ yarn start
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
-[^1]: (`@teletenor_bot`) has been disabled in favor of a shorter username handle (`@ttenor_bot`)
+## Notes
+
+* (`@teletenor_bot`) bot has been disabled in favor of a shorter username handle (`@ttenor_bot`)
