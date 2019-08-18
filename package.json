@@ -1,6 +1,6 @@
 {
     "name": "teletenor",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "main": "js/main/main.js",
     "repository": "git@github.com:tabby-jun/teletenor.git",
     "author": "Tham Wang Jun <jun@thamwangjun.me>",
