@@ -10,6 +10,7 @@ function processQuery (context) {
   var userLangCode = context.inlineQuery.from.language_code
 
   return this.tenorSearcher.search(context, userLangCode)
+    .then(this.tenorSearcher.convertTenorResults)
     .then(answerQuery)
     .catch(console.error)
 }
