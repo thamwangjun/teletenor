@@ -1,6 +1,8 @@
 const Telegraf = require('telegraf')
+const Bottleneck = require('bottleneck')
 const pjson = require('../../package.json')
 const commandMsg = require('../messages/commandMsg')
+const registerSharePerSecond = process.env.REGISTER_SHARE_PER_SECOND || 100
 
 module.exports = {
   'createClient': createClient
@@ -8,14 +10,40 @@ module.exports = {
 
 var messageMarkdownOption = { 'parse_mode': 'HTML' }
 
-function createClient () {
+function createClient (tenorClient) {
   const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
+  bot.tenorClient = tenorClient
 
   bot.command('version', replyVersion)
   bot.start(replyStart)
   setCommandReplies(bot)
+
+  listenForChosenInlineResult(bot, registerSharePerSecond, tenorClient)
+
   bot.launch()
   return bot
+}
+
+function listenForChosenInlineResult (bot, tenorClient) {
+  var limiter = new Bottleneck(createBottleneckOptions())
+
+  var wrappedInlineResultHandler = limiter.wrap(handleChosenInlineResult.bind(bot))
+
+  bot.use((context, next) => {
+    if (context.chosenInlineResult) {
+      return wrappedInlineResultHandler(context, next)
+    }
+    return next(context)
+  })
+}
+
+function handleChosenInlineResult (context, next) {
+  var chosenInlineResult = context.chosenInlineResult
+
+  this.tenorClient.registerShare(chosenInlineResult.query, chosenInlineResult.result_id, chosenInlineResult.from.language_code)
+    .then(function () {
+      return next(context)
+    })
 }
 
 function replyVersion (context) {
@@ -36,5 +64,14 @@ function setCommandReplies (bot) {
 function createReplyMessageFunc (message) {
   return function (context) {
     context.reply(message, messageMarkdownOption)
+  }
+}
+
+function createBottleneckOptions () {
+  var minimumTimePerRequest = 1000 / registerSharePerSecond
+  return {
+    minTime: minimumTimePerRequest,
+    highWater: registerSharePerSecond,
+    strategy: Bottleneck.strategy.LEAK
   }
 }
