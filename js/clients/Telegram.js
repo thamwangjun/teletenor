@@ -1,6 +1,6 @@
 const Telegraf = require('telegraf')
 const pjson = require('../../package.json')
-const commandMsg = require('../../messages/commandMsg')
+const commandMsg = require('../messages/commandMsg')
 
 module.exports = {
   'createClient': createClient
