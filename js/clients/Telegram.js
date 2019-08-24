@@ -1,8 +1,11 @@
 const Telegraf = require('telegraf')
 const Bottleneck = require('bottleneck')
+const Logger = require('../logger/Logger')
 const pjson = require('../../package.json')
 const commandMsg = require('../messages/commandMsg')
+
 const registerSharePerSecond = process.env.REGISTER_SHARE_PER_SECOND || 100
+const loggingEnabled = process.env.LOGGING_ENABLED || false
 
 module.exports = {
   'createClient': createClient
@@ -19,6 +22,7 @@ function createClient (tenorClient) {
   setCommandReplies(bot)
 
   listenForChosenInlineResult(bot, registerSharePerSecond, tenorClient)
+  useLogger(bot)
 
   bot.launch()
   return bot
@@ -35,6 +39,14 @@ function listenForChosenInlineResult (bot, tenorClient) {
     }
     return next(context)
   })
+}
+
+function useLogger (bot) {
+  if (loggingEnabled) {
+    Logger.initLogLevel()
+    bot.use(Logger.logInline)
+    bot.use(Logger.logRegisterShare)
+  }
 }
 
 function handleChosenInlineResult (context, next) {
