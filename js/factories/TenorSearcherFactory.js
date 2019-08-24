@@ -18,5 +18,5 @@ function createTenorSearcher (tenorClient, extractDataHandle, resultLimit) {
 }
 
 function searchFunc (context, locale) {
-  return this.client.searchTenorGifsWithQuery(context, context.inlineQuery.query, locale, this.resultLimit)
+  return this.client.searchTenorGifsWithQuery(context, context.inlineQuery.query, locale, this.resultLimit, context.inlineQuery.offset)
 }

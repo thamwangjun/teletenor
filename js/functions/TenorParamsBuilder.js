@@ -5,7 +5,7 @@ module.exports = {
   buildRegisterShareParams: buildRegisterShareParams
 }
 
-function buildQueryParams (query, locale, contentFilter, mediaFilter, limit, accessKey) {
+function buildQueryParams (query, locale, contentFilter, mediaFilter, limit, accessKey, offset) {
   var params = {}
 
   setQueryParam(query, params)
@@ -19,6 +19,8 @@ function buildQueryParams (query, locale, contentFilter, mediaFilter, limit, acc
   setLimitParam(limit, params)
 
   setAccessKeyParam(accessKey, params)
+
+  setPosParam(offset, params)
 
   return params
 }
@@ -73,5 +75,11 @@ function setMediaFilterParam (mediaFilter, params) {
 function setLimitParam (limit, params) {
   if (limit) {
     params.limit = limit
+  }
+}
+
+function setPosParam (offset, params) {
+  if (offset) {
+    params.pos = offset
   }
 }

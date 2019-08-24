@@ -12,9 +12,9 @@ var clientProto = {
 
 module.exports = clientProto
 
-function searchTenorGifsWithQuery (context, query, locale, resultLimit) {
+function searchTenorGifsWithQuery (context, query, locale, resultLimit, offset) {
   return rp({
-    uri: getEndpointUrl(query, locale, this.clientContentFilter, this.clientMediaFilter, resultLimit, this.accessToken),
+    uri: getEndpointUrl(query, locale, this.clientContentFilter, this.clientMediaFilter, resultLimit, this.accessToken, offset),
     json: true
   })
     .then(createSearchResponse(context))
@@ -36,8 +36,8 @@ function createSearchResponse (context) {
   }
 }
 
-function getEndpointUrl (query, locale, contentFilter, mediaFilter, limit, accessKey) {
-  var queryParams = TenorParamsBuilder.buildQueryParams(query, locale, contentFilter, mediaFilter, limit, accessKey)
+function getEndpointUrl (query, locale, contentFilter, mediaFilter, limit, accessKey, offset) {
+  var queryParams = TenorParamsBuilder.buildQueryParams(query, locale, contentFilter, mediaFilter, limit, accessKey, offset)
 
   if (query) {
     return buildSearchUrl(queryParams)

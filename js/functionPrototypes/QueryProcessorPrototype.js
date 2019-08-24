@@ -18,5 +18,20 @@ function processQuery (context) {
 
 function answerQuery (searchResponse) {
   var context = searchResponse.context
-  return context.answerInlineQuery(searchResponse.resultArr, { 'cache_time': cacheTime })
+  var answerOptions = {}
+  setCacheTime(answerOptions)
+  setNextOffset(answerOptions, searchResponse.nextOffset)
+  return context.answerInlineQuery(searchResponse.resultArr, answerOptions)
+}
+
+function setCacheTime (answerOptions) {
+  answerOptions.cache_time = cacheTime
+  return answerOptions
+}
+
+function setNextOffset (answerOptions, nextOffset) {
+  if (nextOffset) {
+    answerOptions.next_offset = nextOffset
+  }
+  return answerOptions
 }
