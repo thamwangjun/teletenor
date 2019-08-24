@@ -5,8 +5,8 @@ var Tenor = require('../clients/Tenor')
 const queryProcessorFactory = require('../factories/QueryProcessorFactory')
 
 function start () {
-  var telegramClient = Telegram.createClient()
   var tenorClient = Tenor.createClient(process.env.TENOR_CONTENT_FILTER, 'basic')
+  var telegramClient = Telegram.createClient(tenorClient)
   var queryProcessor = queryProcessorFactory.createQueryProcessor(tenorClient)
 
   telegramClient.on('inline_query', queryProcessor.processQuery)
