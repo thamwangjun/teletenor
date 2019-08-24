@@ -1,6 +1,8 @@
 const rp = require('request-promise')
 const buildUrl = require('build-url')
 const TenorParamsBuilder = require('../functions/TenorParamsBuilder')
+const SearchContextResponse = require('../structs/SearchContextResponse')
+const TenorSearchResponse = require('../structs/TenorSearchResponse')
 
 var clientProto = {
   searchTenorGifsWithQuery: searchTenorGifsWithQuery,
@@ -27,10 +29,10 @@ function registerShare (query, id, locale) {
 
 function createSearchResponse (context) {
   return function (response) {
-    return {
-      res: response,
+    return SearchContextResponse({
+      res: TenorSearchResponse(response),
       context: context
-    }
+    })
   }
 }
 

@@ -1,3 +1,4 @@
+const Logger = require('../logger/Logger')
 const cacheTime = process.env.TELEGRAM_INLINE_RESPONSE_CACHE_TIME || 300
 
 const processQueryProto = {
@@ -12,7 +13,7 @@ function processQuery (context) {
   return this.tenorSearcher.search(context, userLangCode)
     .then(this.tenorSearcher.convertTenorResults)
     .then(answerQuery)
-    .catch(console.error)
+    .catch(Logger.logError)
 }
 
 function answerQuery (searchResponse) {

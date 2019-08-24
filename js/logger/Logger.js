@@ -2,16 +2,21 @@ const chalk = require('chalk')
 const log = require('loglevel')
 const logSymbols = require('log-symbols')
 const timestamp = require('time-stamp')
-const logLevel = process.env.LOG_LEVEL || 'silent'
+const logLevel = process.env.LOG_LEVEL || 'error'
 
 module.exports = {
   initLogLevel: initLogLevel,
   logInline: logInline,
-  logRegisterShare: logRegisterShare
+  logRegisterShare: logRegisterShare,
+  logError: logError
 }
 
 function initLogLevel () {
   log.setLevel(logLevel)
+}
+
+function logError (error) {
+  log.error(error)
 }
 
 function logInline (context, next) {
