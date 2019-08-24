@@ -14,6 +14,9 @@ function start () {
 
   telegramClient.on('inline_query', queryProcessor.processQuery)
   TenorShareRegistrar.listenForChosenInlineResult(telegramClient, registerSharePerSecond, tenorClient)
+  return telegramClient
 }
 
-start()
+module.exports = {
+  'teletenorBot': start()
+}

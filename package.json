@@ -35,7 +35,8 @@
     },
     "scripts": {
         "start": "node js/main/main.js",
-        "standard": "standard 'js/**/*'"
+        "standard": "standard 'js/**/*'",
+        "export-lambda-pkg": "zip -r dist/teletenor-lambda-$npm_package_version.zip ./js ./package.json ./node_modules"
     },
     "keywords": [
         "teletenor",
