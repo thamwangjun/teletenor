@@ -1,4 +1,6 @@
-const rp = require('request-promise-native')
+const got = require('got')
+const HttpAgent = require('agentkeepalive')
+const { HttpsAgent } = HttpAgent
 const buildUrl = require('build-url')
 const TenorParamsBuilder = require('../functions/TenorParamsBuilder')
 const SearchContextResponse = require('../structs/SearchContextResponse')
@@ -14,9 +16,11 @@ module.exports = clientProto
 
 var requestOptions = {
   json: true,
-  gzip: true,
-  forever: true,
-  timeout: 5000
+  timeout: 5000,
+  decompress: true,
+  agent: {
+    https: new HttpsAgent()
+  }
 }
 
 function searchTenorGifsWithQuery (context, query, locale, resultLimit, offset) {
@@ -26,16 +30,17 @@ function searchTenorGifsWithQuery (context, query, locale, resultLimit, offset) 
 
 function registerShare (query, id, locale) {
   return createRequestPromise(buildRegisterShareUrl(query, id, locale, this.accessToken))
+    .then(returnBody)
 }
 
 function createRequestPromise (uri) {
-  return rp(Object.assign({ uri: uri }, requestOptions))
+  return got(uri, requestOptions)
 }
 
 function createSearchResponse (context) {
   return function (response) {
     return SearchContextResponse({
-      res: TenorSearchResponse(response),
+      res: TenorSearchResponse(response.body),
       context: context
     })
   }
@@ -72,4 +77,8 @@ function buildRegisterShareUrl (query, id, locale, accessKey) {
     path: 'v1/registershare',
     queryParams: requestParams
   })
+}
+
+function returnBody (response) {
+  return response.body
 }
