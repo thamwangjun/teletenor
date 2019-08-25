@@ -1,4 +1,4 @@
-const rp = require('request-promise')
+const rp = require('request-promise-native')
 const buildUrl = require('build-url')
 const TenorParamsBuilder = require('../functions/TenorParamsBuilder')
 const SearchContextResponse = require('../structs/SearchContextResponse')
@@ -12,19 +12,24 @@ var clientProto = {
 
 module.exports = clientProto
 
+var requestOptions = {
+  json: true,
+  gzip: true,
+  forever: true,
+  timeout: 1000
+}
+
 function searchTenorGifsWithQuery (context, query, locale, resultLimit, offset) {
-  return rp({
-    uri: getEndpointUrl(query, locale, this.clientContentFilter, this.clientMediaFilter, resultLimit, this.accessToken, offset),
-    json: true
-  })
+  return createRequestPromise(getEndpointUrl(query, locale, this.clientContentFilter, this.clientMediaFilter, resultLimit, this.accessToken, offset))
     .then(createSearchResponse(context))
 }
 
 function registerShare (query, id, locale) {
-  return rp({
-    uri: buildRegisterShareUrl(query, id, locale, this.accessToken),
-    json: true
-  })
+  return createRequestPromise(buildRegisterShareUrl(query, id, locale, this.accessToken))
+}
+
+function createRequestPromise (uri) {
+  return rp(Object.assign({ uri: uri }, requestOptions))
 }
 
 function createSearchResponse (context) {

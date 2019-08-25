@@ -1,17 +1,9 @@
-const Bottleneck = require('bottleneck')
-
-const registerSharePerSecond = parseInt(process.env.REGISTER_SHARE_PER_SECOND) || 100
-
 module.exports = {
   listenForChosenInlineResult: listenForChosenInlineResult
 }
 
 function listenForChosenInlineResult (telegramBot, tenorClient) {
-  var limiter = new Bottleneck(createBottleneckOptions())
-
-  var wrappedInlineResultHandler = limiter.wrap(handleChosenInlineResult.bind(telegramBot))
-
-  telegramBot.on('chosen_inline_result', wrappedInlineResultHandler)
+  telegramBot.on('chosen_inline_result', handleChosenInlineResult)
 }
 
 function handleChosenInlineResult (context, next) {
@@ -21,13 +13,4 @@ function handleChosenInlineResult (context, next) {
     .then(function () {
       return next(context)
     })
-}
-
-function createBottleneckOptions () {
-  var minimumTimePerRequest = 1000 / registerSharePerSecond
-  return {
-    minTime: minimumTimePerRequest,
-    highWater: registerSharePerSecond,
-    strategy: Bottleneck.strategy.LEAK
-  }
 }

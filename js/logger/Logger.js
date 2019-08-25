@@ -17,6 +17,7 @@ function initLogLevel () {
 
 function logError (error) {
   log.error(error)
+  throw error
 }
 
 function logInline (context, next) {
