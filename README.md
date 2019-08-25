@@ -31,6 +31,9 @@ TENOR_SEARCH_RESULT_LIMIT=12
 TENOR_CONTENT_FILTER="low"
 MP4_MEDIA_FORMAT="mp4"
 GIF_MEDIA_FORMAT="nanogif"
+REGISTER_SHARE_PER_SECOND=100
+LOGGING_ENABLED=false
+LOG_LEVEL=error
 ```
 
 ### *Install deps and start*
@@ -49,7 +52,7 @@ yarn start
 
 1. ~~Locale-related Tenor searches~~ *done*
 
-2. Register shares with Tenor
+2. ~~Register shares with Tenor~~  *done*
 
 3. Automated Tests `!important`
 
