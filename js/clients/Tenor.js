@@ -13,6 +13,7 @@ function createClient (contentFilter = 'low', mediaFilter = 'basic') {
 
   client.searchTenorGifsWithQuery = tenorClientPrototype.searchTenorGifsWithQuery.bind(client)
   client.getEndpointUrl = tenorClientPrototype.getEndpointUrl.bind(client)
+  client.registerShare = tenorClientPrototype.registerShare.bind(client)
 
   return client
 }

@@ -1,33 +1,43 @@
 const rp = require('request-promise')
 const buildUrl = require('build-url')
-const ISO6391 = require('iso-639-1')
+const TenorParamsBuilder = require('../functions/TenorParamsBuilder')
+const SearchContextResponse = require('../structs/SearchContextResponse')
+const TenorSearchResponse = require('../structs/TenorSearchResponse')
 
 var clientProto = {
   searchTenorGifsWithQuery: searchTenorGifsWithQuery,
-  getEndpointUrl: getEndpointUrl
+  getEndpointUrl: getEndpointUrl,
+  registerShare: registerShare
 }
 
 module.exports = clientProto
 
-function searchTenorGifsWithQuery (context, query, locale, resultLimit) {
+function searchTenorGifsWithQuery (context, query, locale, resultLimit, offset) {
   return rp({
-    uri: getEndpointUrl(query, locale, this.clientContentFilter, this.clientMediaFilter, resultLimit, this.accessToken),
+    uri: getEndpointUrl(query, locale, this.clientContentFilter, this.clientMediaFilter, resultLimit, this.accessToken, offset),
     json: true
   })
     .then(createSearchResponse(context))
 }
 
+function registerShare (query, id, locale) {
+  return rp({
+    uri: buildRegisterShareUrl(query, id, locale, this.accessToken),
+    json: true
+  })
+}
+
 function createSearchResponse (context) {
   return function (response) {
-    return {
-      res: response,
+    return SearchContextResponse({
+      res: TenorSearchResponse(response),
       context: context
-    }
+    })
   }
 }
 
-function getEndpointUrl (query, locale, contentFilter, mediaFilter, limit, accessKey) {
-  var queryParams = buildQueryParams(query, locale, contentFilter, mediaFilter, limit, accessKey)
+function getEndpointUrl (query, locale, contentFilter, mediaFilter, limit, accessKey, offset) {
+  var queryParams = TenorParamsBuilder.buildQueryParams(query, locale, contentFilter, mediaFilter, limit, accessKey, offset)
 
   if (query) {
     return buildSearchUrl(queryParams)
@@ -50,32 +60,11 @@ function buildTrendingUrl (queryParams) {
   })
 }
 
-function buildQueryParams (query, locale, contentFilter, mediaFilter, limit, accessKey) {
-  var params = {}
+function buildRegisterShareUrl (query, id, locale, accessKey) {
+  var requestParams = TenorParamsBuilder.buildRegisterShareParams(query, id, locale, accessKey)
 
-  if (query) {
-    params.q = query
-  }
-
-  if (locale && ISO6391.validate(locale)) {
-    params.locale = locale
-  }
-
-  if (contentFilter) {
-    params.contentfilter = contentFilter
-  }
-
-  if (mediaFilter) {
-    params.media_filter = mediaFilter
-  }
-
-  if (limit) {
-    params.limit = limit
-  }
-
-  if (accessKey) {
-    params.key = accessKey
-  }
-
-  return params
+  return buildUrl('https://api.tenor.com', {
+    path: 'v1/registershare',
+    queryParams: requestParams
+  })
 }

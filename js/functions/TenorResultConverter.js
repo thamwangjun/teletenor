@@ -1,14 +1,19 @@
+const TenorSearchResponse = require('../structs/TenorSearchResponse')
+const QueryAnswer = require('../structs/QueryAnswer')
+
 module.exports = {
   convertTenorResults: convertTenorResults
 }
 
-function convertTenorResults (responseObj) {
+function convertTenorResults (searchContextResponse) {
   var inlineQueryResultMpeg4GifArr = []
-  responseObj.res.results.forEach(gifObj => {
+  var searchResponse = TenorSearchResponse(searchContextResponse.res)
+  searchResponse.results.forEach(gifObj => {
     inlineQueryResultMpeg4GifArr.push(this.extractDataHandle.extractData(gifObj))
   })
-  return {
+  return QueryAnswer({
     resultArr: inlineQueryResultMpeg4GifArr,
-    context: responseObj.context
-  }
+    context: searchContextResponse.context,
+    nextOffset: searchResponse.next
+  })
 }
