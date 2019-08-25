@@ -1,6 +1,6 @@
 {
     "name": "teletenor",
-    "version": "0.7.3",
+    "version": "0.7.4",
     "main": "js/main/main.js",
     "repository": {
         "type": "git",

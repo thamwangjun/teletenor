@@ -3,7 +3,8 @@ module.exports = {
 }
 
 function listenForChosenInlineResult (telegramBot, tenorClient) {
-  telegramBot.on('chosen_inline_result', handleChosenInlineResult)
+  var listener = { tenorClient: tenorClient }
+  telegramBot.on('chosen_inline_result', handleChosenInlineResult.bind(listener))
 }
 
 function handleChosenInlineResult (context, next) {
