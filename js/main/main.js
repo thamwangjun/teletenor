@@ -6,7 +6,7 @@ const queryProcessorFactory = require('../factories/QueryProcessorFactory')
 const TenorShareRegistrar = require('../functions/TenorShareRegistrar')
 
 function start () {
-  var tenorClient = Tenor.createClient(process.env.TENOR_CONTENT_FILTER, 'basic')
+  var tenorClient = Tenor.createClient(process.env.TENOR_CONTENT_FILTER, process.env.TENOR_MEDIA_FILTER)
   var telegramClient = Telegram.createClient(tenorClient)
   var queryProcessor = queryProcessorFactory.createQueryProcessor(tenorClient)
 

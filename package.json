@@ -1,6 +1,6 @@
 {
     "name": "teletenor",
-    "version": "0.7.2",
+    "version": "0.7.3",
     "main": "js/main/main.js",
     "repository": {
         "type": "git",
@@ -34,7 +34,7 @@
     "scripts": {
         "start": "node js/main/main.js",
         "standard": "standard 'js/**/*'",
-        "export-lambda-pkg": "mkdir -p ./dist && zip -9rq dist/teletenor-lambda-$npm_package_version.zip ./js ./package.json ./node_modules"
+        "export-lambda": "mkdir -p ./dist && zip -9rq dist/teletenor-lambda-$npm_package_version.zip ./js ./package.json ./node_modules"
     },
     "keywords": [
         "teletenor",
