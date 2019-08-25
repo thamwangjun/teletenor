@@ -1,5 +1,9 @@
 # Change log for teletenor
 
+## `0.7.x`
+
+Initial implementation for support of AWS Lambda Functions
+
 ## `0.6.0`
 
 Implemented pagination of results, users can now get more tenor results by scrolling the inline suggestions.
