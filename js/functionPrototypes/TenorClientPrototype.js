@@ -16,7 +16,7 @@ var requestOptions = {
   json: true,
   gzip: true,
   forever: true,
-  timeout: 1000
+  timeout: 5000
 }
 
 function searchTenorGifsWithQuery (context, query, locale, resultLimit, offset) {
