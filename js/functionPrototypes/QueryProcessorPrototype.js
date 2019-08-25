@@ -1,5 +1,5 @@
 const Logger = require('../logger/Logger')
-const cacheTime = process.env.TELEGRAM_INLINE_RESPONSE_CACHE_TIME || 300
+const cacheTime = parseInt(process.env.TELEGRAM_INLINE_RESPONSE_CACHE_TIME) || 300
 
 const processQueryProto = {
   processQuery: processQuery

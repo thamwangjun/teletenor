@@ -1,16 +1,17 @@
-const registerSharePerSecond = process.env.REGISTER_SHARE_PER_SECOND || 100
 const Bottleneck = require('bottleneck')
+
+const registerSharePerSecond = parseInt(process.env.REGISTER_SHARE_PER_SECOND) || 100
 
 module.exports = {
   listenForChosenInlineResult: listenForChosenInlineResult
 }
 
-function listenForChosenInlineResult (bot, tenorClient) {
+function listenForChosenInlineResult (telegramBot, tenorClient) {
   var limiter = new Bottleneck(createBottleneckOptions())
 
-  var wrappedInlineResultHandler = limiter.wrap(handleChosenInlineResult.bind(bot))
+  var wrappedInlineResultHandler = limiter.wrap(handleChosenInlineResult.bind(telegramBot))
 
-  bot.on('chosen_inline_result', wrappedInlineResultHandler)
+  telegramBot.on('chosen_inline_result', wrappedInlineResultHandler)
 }
 
 function handleChosenInlineResult (context, next) {

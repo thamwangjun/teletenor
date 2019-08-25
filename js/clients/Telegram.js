@@ -3,7 +3,8 @@ const Logger = require('../logger/Logger')
 const pjson = require('../../package.json')
 const commandMsg = require('../messages/commandMsg')
 
-const loggingEnabled = process.env.LOGGING_ENABLED || false
+const loggingEnabled = process.env.LOGGING_ENABLED === 'true' || false
+const launchDisabled = process.env.DISABLE_LAUNCH === 'true' || false
 
 module.exports = {
   'createClient': createClient
@@ -20,7 +21,10 @@ function createClient (tenorClient) {
   setCommandReplies(bot)
   useLogger(bot)
 
-  bot.launch()
+  if (!launchDisabled) {
+    bot.launch()
+  }
+
   return bot
 }
 
