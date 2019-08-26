@@ -34,6 +34,7 @@ MP4_MEDIA_FORMAT="mp4"
 GIF_MEDIA_FORMAT="tinygif"
 LOGGING_ENABLED=false
 LOG_LEVEL=error
+DISABLE_LAUNCH=false # true when using AWS Lambda
 ```
 
 ### *Install deps and start*

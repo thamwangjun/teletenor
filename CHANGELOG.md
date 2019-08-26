@@ -1,5 +1,10 @@
 # Change log for teletenor
 
+## `0.9.0`
+
+Implementation of receiving events from AWS Simple Queue Service, with handling of batch records per lambda invocation
+Up to 10 records, which mean up to 10 inline queries handled by each Lambda invocation
+
 ## `0.8.0`
 
 New implementation of handling bot commands, and modified some command responses
