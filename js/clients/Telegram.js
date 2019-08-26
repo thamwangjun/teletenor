@@ -37,11 +37,11 @@ function useLogger (bot) {
 }
 
 function replyVersion (context) {
-  context.reply(`My teletenor version is ${pjson.version}`)
+  return context.reply(`My teletenor version is ${pjson.version}`)
 }
 
 function replyStart (context) {
-  context.reply(`I am currently running now! My teletenor version is ${pjson.version}`)
+  return context.reply(`I am currently running now! My teletenor version is ${pjson.version}`)
 }
 
 function setCommandReplies (bot) {
@@ -53,6 +53,6 @@ function setCommandReplies (bot) {
 
 function createReplyMessageFunc (message) {
   return function (context) {
-    context.reply(message, messageMarkdownOption)
+    return context.reply(message, messageMarkdownOption)
   }
 }
