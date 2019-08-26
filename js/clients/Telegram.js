@@ -1,7 +1,6 @@
 const Telegraf = require('telegraf')
 const Logger = require('../logger/Logger')
-const pjson = require('../../package.json')
-const commandMsg = require('../messages/commandMsg')
+const commandPromise = require('../commands/constructCommandsPromise')
 
 const loggingEnabled = process.env.LOGGING_ENABLED === 'true' || false
 const launchDisabled = process.env.DISABLE_LAUNCH === 'true' || false
@@ -16,8 +15,6 @@ function createClient (tenorClient) {
   const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
   bot.tenorClient = tenorClient
 
-  bot.command('version', replyVersion)
-  bot.start(replyStart)
   setCommandReplies(bot)
   useLogger(bot)
 
@@ -36,19 +33,13 @@ function useLogger (bot) {
   }
 }
 
-function replyVersion (context) {
-  return context.reply(`My teletenor version is ${pjson.version}`)
-}
-
-function replyStart (context) {
-  return context.reply(`I am currently running now! My teletenor version is ${pjson.version}`)
-}
-
 function setCommandReplies (bot) {
-  var commandKeys = Object.keys(commandMsg)
-  for (var key of commandKeys) {
-    bot.command(key, createReplyMessageFunc(commandMsg[key]))
-  }
+  commandPromise.then(function (commands) {
+    var commandKeys = Object.keys(commands)
+    for (var key of commandKeys) {
+      bot.command(key, createReplyMessageFunc(commands[key]))
+    }
+  })
 }
 
 function createReplyMessageFunc (message) {
