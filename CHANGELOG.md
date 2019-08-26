@@ -1,5 +1,10 @@
 # Change log for teletenor
 
+## `0.8.0`
+
+New implementation of handling bot commands, and modified some command responses
+Added new `/termsAndPrivacy` command
+
 ## `0.7.x`
 
 Initial implementation for support of AWS Lambda Functions
