@@ -4,6 +4,8 @@
 
 Initial implementation for support of AWS Lambda Functions
 
+Fix bot having trouble responding to bot commands due to early termination of lambda
+
 ## `0.6.0`
 
 Implemented pagination of results, users can now get more tenor results by scrolling the inline suggestions.
