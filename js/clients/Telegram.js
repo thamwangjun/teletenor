@@ -27,7 +27,6 @@ function createClient (tenorClient) {
 
 function useLogger (bot) {
   if (loggingEnabled) {
-    Logger.initLogLevel()
     bot.use(Logger.logInline)
     bot.use(Logger.logRegisterShare)
   }
@@ -44,6 +43,7 @@ function setCommandReplies (bot) {
 
 function createReplyMessageFunc (message) {
   return function (context) {
+    Logger.logCommandReply(context.message.text)
     return context.reply(message, messageMarkdownOption)
   }
 }

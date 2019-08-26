@@ -1,4 +1,5 @@
 const main = require('./main')
+const Logger = require('../logger/Logger')
 
 const bot = main.teletenorBot
 
@@ -18,7 +19,8 @@ function returnErrorResponse (error) {
   return Object.assign({ 'body': error.message }, internalErrorResponse)
 }
 
-exports.handler = async function (event) {
+exports.handler = async function (event, context) {
+  Logger.logLambdaContext(context)
   if (isFromSimpleQueueService(event)) {
     return handleRecords(event)
   } else {
@@ -35,8 +37,9 @@ function handleSingleEvent (event) {
 
 function handleRecords (event) {
   var Records = event.Records
-  var recordsPromiseArr = []
+  Logger.logLambdaBatch(Records.length)
 
+  var recordsPromiseArr = []
   Records.forEach(function (record) {
     recordsPromiseArr.push(handleSingleEvent(record))
   })
