@@ -1,7 +1,7 @@
 const referenceMsg = require('../msg/referenceMsg')
 
 module.exports = {
-  'termsAndPrivacy': `<b>Terms of Service and Privacy Policy</b>
+  'terms': `<b>Terms of Service and Privacy Policy</b>
 
   Teletenor uses both <a href="https://telegram.org">Telegram</a> and <a href="https://tenor.com">Tenor</a> services to work.
 
