@@ -1,5 +1,9 @@
 # Change log for teletenor
 
+## `0.9.3`
+
+Refactor handling of bot commands, with some fixes
+
 ## `0.9.0`
 
 Implementation of receiving events from AWS Simple Queue Service, with handling of batch records per lambda invocation
