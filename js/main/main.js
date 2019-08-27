@@ -4,16 +4,24 @@ const Telegram = require('../clients/Telegram')
 const Tenor = require('../clients/Tenor')
 const queryProcessorFactory = require('../factories/QueryProcessorFactory')
 const TenorShareRegistrar = require('../functions/TenorShareRegistrar')
-
-const registerSharePerSecond = process.env.REGISTER_SHARE_PER_SECOND || 100
+const loggingEnabled = process.env.LOGGING_ENABLED === 'true' || false
+const Logger = require('../logger/Logger')
+setupLogging()
 
 function start () {
-  var tenorClient = Tenor.createClient(process.env.TENOR_CONTENT_FILTER, 'basic')
+  var tenorClient = Tenor.createClient(process.env.TENOR_CONTENT_FILTER, process.env.TENOR_MEDIA_FILTER)
   var telegramClient = Telegram.createClient(tenorClient)
   var queryProcessor = queryProcessorFactory.createQueryProcessor(tenorClient)
 
   telegramClient.on('inline_query', queryProcessor.processQuery)
-  TenorShareRegistrar.listenForChosenInlineResult(telegramClient, registerSharePerSecond, tenorClient)
+  TenorShareRegistrar.listenForChosenInlineResult(telegramClient, tenorClient)
+  return telegramClient
 }
 
-start()
+function setupLogging () {
+  if (loggingEnabled) Logger.initLogLevel()
+}
+
+module.exports = {
+  'teletenorBot': start()
+}

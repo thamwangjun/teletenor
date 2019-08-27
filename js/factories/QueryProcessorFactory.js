@@ -4,7 +4,7 @@ const tenorSearcherFactory = require('../factories/TenorSearcherFactory')
 
 const mp4MediaFormatString = process.env.MP4_MEDIA_FORMAT || 'mp4'
 const gifMediaFormatString = process.env.GIF_MEDIA_FORMAT || 'nanogif'
-const resultLimit = process.env.TENOR_SEARCH_RESULT_LIMIT || 12
+const resultLimit = parseInt(process.env.TENOR_SEARCH_RESULT_LIMIT) || 12
 
 module.exports = {
   'createQueryProcessor': createQueryProcessor

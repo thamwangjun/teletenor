@@ -1,14 +1,16 @@
-const chalk = require('chalk')
 const log = require('loglevel')
-const logSymbols = require('log-symbols')
-const timestamp = require('time-stamp')
+const LogEntry = require('./LogEntry')
 const logLevel = process.env.LOG_LEVEL || 'error'
+const loggingEnabled = process.env.LOGGING_ENABLED === 'true' || false
 
 module.exports = {
   initLogLevel: initLogLevel,
   logInline: logInline,
   logRegisterShare: logRegisterShare,
-  logError: logError
+  logError: logError,
+  logLambdaBatch: logLambdaBatch,
+  logCommandReply: logCommandReply,
+  logLambdaContext: logLambdaContext
 }
 
 function initLogLevel () {
@@ -17,11 +19,12 @@ function initLogLevel () {
 
 function logError (error) {
   log.error(error)
+  throw error
 }
 
 function logInline (context, next) {
   if (context.inlineQuery) {
-    var logEntry = createInlineLogEntry(context.inlineQuery)
+    var logEntry = LogEntry.createInlineLogEntry(context.inlineQuery)
     log.info(logEntry.symbol, logEntry.timestamp, logEntry.action, logEntry.inlineId, logEntry.userId, logEntry.username, logEntry.userLang, logEntry.query)
   }
   return next(context)
@@ -29,34 +32,29 @@ function logInline (context, next) {
 
 function logRegisterShare (context, next) {
   if (context.chosenInlineResult) {
-    var logEntry = createShareLogEntry(context.chosenInlineResult)
+    var logEntry = LogEntry.createShareLogEntry(context.chosenInlineResult)
     log.info(logEntry.symbol, logEntry.timestamp, logEntry.action, logEntry.resultId, logEntry.userId, logEntry.username, logEntry.userLang, logEntry.query)
   }
   return next(context)
 }
 
-function createInlineLogEntry (inlineQuery) {
-  return {
-    symbol: chalk.bgCyan(logSymbols.info),
-    action: chalk.bgYellow('Action:SearchQuery'),
-    timestamp: chalk.white(`Time:"${timestamp('DD-MM-YYYY:mm:ss:ms')}"`),
-    inlineId: chalk.green(`ID:"${inlineQuery.id}"`),
-    userId: chalk.yellow(`From:"${inlineQuery.from.id}"`),
-    username: chalk.yellow(`From:"${inlineQuery.from.username}"`),
-    userLang: chalk.gray(`UserLang:"${inlineQuery.from.language_code}"`),
-    query: chalk.magenta(`Query:"${inlineQuery.query}"`)
+function logLambdaBatch (numRecords) {
+  if (loggingEnabled) {
+    var logEntry = LogEntry.createLambdaBatchLogEntry(numRecords)
+    log.info(logEntry.symbol, logEntry.timestamp, logEntry.action, logEntry.numRecords)
   }
 }
 
-function createShareLogEntry (chosenInlineResult) {
-  return {
-    symbol: chalk.bgCyan(logSymbols.info),
-    action: chalk.bgYellow('Action:RegisterShare'),
-    timestamp: chalk.white(`Time:"${timestamp('DD-MM-YYYY:mm:ss:ms')}"`),
-    resultId: chalk.green(`ResultID:"${chosenInlineResult.result_id}"`),
-    userId: chalk.yellow(`From:"${chosenInlineResult.from.id}"`),
-    username: chalk.yellow(`From:"${chosenInlineResult.from.username}"`),
-    userLang: chalk.grey(`UserLang:"${chosenInlineResult.from.language_code}"`),
-    query: chalk.magenta(`Query:"${chosenInlineResult.query}"`)
+function logLambdaContext (context) {
+  if (loggingEnabled) {
+    var logEntry = LogEntry.createLambdaContextEntry(context)
+    log.info(logEntry.symbol, logEntry.timestamp, logEntry.action, logEntry.memoryLimitInMB, logEntry.awsRequestId, logEntry.remainingTimeInMillis)
+  }
+}
+
+function logCommandReply (command) {
+  if (loggingEnabled) {
+    var logEntry = LogEntry.createCommandReplyEntry(command)
+    log.info(logEntry.symbol, logEntry.timestamp, logEntry.action, logEntry.command)
   }
 }
