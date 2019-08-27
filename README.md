@@ -6,10 +6,13 @@ You can use the bot by mentioning [`@ttenor_bot`](https://telegram.me/ttenor_bot
 
 **teletenor is still currently in alpha status.**
 
-## Upcoming features
+## *develop was merged to master early due to security advisory (eslint-utils)*
 
-* Support for Amazon Web Services Lambda *preview available in develop branch*
+## New features
+
+* Support for Amazon Web Services Lambda
 * `@ttenordev_bot` can be tested on Telegram
+* *Lambda instance is still not used in production bot `@ttenor_bot`*
 * Documentation for setting up on AWS Lambda is in progress
 
 ### `@ttenordev_bot` is running on
