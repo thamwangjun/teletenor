@@ -1,6 +1,6 @@
 const Telegraf = require('telegraf')
 const Logger = require('../logger/Logger')
-const commandPromise = require('../commands/constructCommandsPromise')
+const commands = require('../commands/constructAllCommands')
 
 const loggingEnabled = process.env.LOGGING_ENABLED === 'true' || false
 const launchDisabled = process.env.DISABLE_LAUNCH === 'true' || false
@@ -33,12 +33,10 @@ function useLogger (bot) {
 }
 
 function setCommandReplies (bot) {
-  commandPromise.then(function (commands) {
-    var commandKeys = Object.keys(commands)
-    for (var key of commandKeys) {
-      bot.command(key, createReplyMessageFunc(commands[key]))
-    }
-  })
+  var commandKeys = Object.keys(commands)
+  for (var key of commandKeys) {
+    bot.command(key, createReplyMessageFunc(commands[key]))
+  }
 }
 
 function createReplyMessageFunc (message) {
