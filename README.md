@@ -39,9 +39,9 @@ cd teletenor
 ### *Create a `.env` file*
 
 ```shell
-TELEGRAM_BOT_TOKEN="bot123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+TELEGRAM_BOT_TOKEN="bot123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11" # You need to get this from Telegram's BotFather, under Prerequisites
 TELEGRAM_INLINE_RESPONSE_CACHE_TIME=300
-TENOR_DEVELOPER_KEY="LIVDSRZULELA"
+TENOR_DEVELOPER_KEY="LIVDSRZULELA" # You need to get this from Tenor's API Portal, under Prerequisites
 TENOR_SEARCH_RESULT_LIMIT=12
 TENOR_CONTENT_FILTER="low"
 TENOR_MEDIA_FILTER="minimal"
