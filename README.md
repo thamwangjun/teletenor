@@ -1,4 +1,5 @@
 # [![teletenor logo banner image](readme-static/teletenor-banner.png)](https://telegram.me/ttenor_bot)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftabby-jun%2Fteletenor.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftabby-jun%2Fteletenor?ref=badge_shield)
 
 [**teletenor**](https://telegram.me/ttenor_bot) is an inline bot for [Telegram](https://telegram.org/) that provides inline gif suggestions retrieved from [Tenor](https://tenor.com/).
 
@@ -81,3 +82,7 @@ yarn start
 ## Notes
 
 * (`@teletenor_bot`) bot has been disabled in favor of a shorter username handle (`@ttenor_bot`)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftabby-jun%2Fteletenor.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftabby-jun%2Fteletenor?ref=badge_large)
