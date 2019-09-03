@@ -1,25 +1,33 @@
-var update = {
-  update_id: null,
-  inline_query: null
+function createRecord (id, body) {
+  return {
+    messageId: `${id}`,
+    receiptHandle: `receiptHandle-${id}`,
+    body: body,
+    attributes: {},
+    messageAttributes: {},
+    md5OfBody: '',
+    eventSource: 'aws:sqs',
+    eventSourceARN: 'arn:aws:sqs:moon-01:001:queue',
+    awsRegion: 'moon-01' }
 }
 
-var inlineQuery = {
-  id: 'inline-query-001',
-  from: null,
-  query: '',
-  offset: 12
+function createRecords (idArr, bodyArr) {
+  if (idArr.length !== bodyArr.length) {
+    throw Error('idArr.length !== bodyArr.length')
+  }
+
+  var arrLength = idArr.length
+  var records = []
+
+  for (let i = 0; i < arrLength; i++) {
+    var id = idArr[i]
+    var body = bodyArr[i]
+    records.push(createRecord(id, body))
+  }
+
+  return {
+    Records: records
+  }
 }
 
-var records = {
-  Records: [
-    { messageId: '0001',
-      receiptHandle: 'receiptHandle-001',
-      body: '{}',
-      attributes: {},
-      messageAttributes: {},
-      md5OfBody: '8654031766',
-      eventSource: 'aws:sqs',
-      eventSourceARN: 'arn:aws:sqs:moon-01:001:queue',
-      awsRegion: 'moon-01' }
-  ]
-}
+exports.createRecord = createRecords
