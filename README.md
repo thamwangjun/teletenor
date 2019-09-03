@@ -12,7 +12,7 @@ You can use the bot by mentioning [`@ttenor_bot`](https://telegram.me/ttenor_bot
 
 * Support for Amazon Web Services Lambda
 * `@ttenordev_bot` can be tested on Telegram
-* *Lambda instance is still not used in production bot `@ttenor_bot`*
+* *Lambda instance is still not used in production, the bot for lambda instance is `@ttenordev_bot`*
 * Documentation for setting up on AWS Lambda is in progress
 
 ### `@ttenordev_bot` is running on
