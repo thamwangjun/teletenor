@@ -7,26 +7,15 @@ You can use the bot by mentioning [`@ttenor_bot`](https://telegram.me/ttenor_bot
 
 **teletenor is still currently in alpha status.**
 
-## *develop was merged to master early due to security advisory (eslint-utils)*
+## AWS Lambda Deployment
 
-## New features
-
-* Support for Amazon Web Services Lambda
-* `@ttenordev_bot` can be tested on Telegram
-* *Lambda instance is still not used in production, the bot for lambda instance is `@ttenordev_bot`*
-* Documentation for setting up on AWS Lambda is in progress
-
-### `@ttenordev_bot` is running on
-
-* AWS API Gateway
-* AWS Simple Queue Service
-* AWS Lambda
+[teletenor-contralto](https://github.com/tabby-jun/teletenor-contralto) is teletenor's project for deployment onto AWS Cloud using [AWS SAM (Serverless Application Model)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html).
 
 ## Setup
 
 ### Prerequisites
 
-* [Node 10.16.2 LTS](https://nodejs.org/en/) *Earlier Node versions may work, but not tested*
+* [Node 12.x.x LTS](https://nodejs.org/en/) *Earlier Node versions may work, but not tested*
 * [A Telegram bot authorization token](https://core.telegram.org/bots#6-botfather)
 * [A Tenor API Key](https://tenor.com/developer/keyregistration)
 

@@ -30,8 +30,17 @@ exports.handler = async function (event, context) {
 
 function handleSingleEvent (event) {
   var eventBody = JSON.parse(event.body)
-  return bot.handleUpdate(eventBody)
-    .then(returnOkayResponse)
+  var response = { 
+    set: function(){},
+    header: {}
+  }
+  return bot.handleUpdate(eventBody, response)
+    .then(() => {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response.body)
+      }
+    })
     .catch(returnErrorResponse)
 }
 
